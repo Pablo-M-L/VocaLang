@@ -12,6 +12,7 @@ struct VocaLangApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(ViewModel())
         }
     }
 }
