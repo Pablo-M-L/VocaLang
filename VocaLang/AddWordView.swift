@@ -15,6 +15,8 @@ struct AddWordView: View {
     @State var originalWord: String = ""
     @State var translatedWord: String = ""
     @State var showGoogle = false
+    @State var yaExiste: [WordTranslate] = []
+    @State var showAlertExist = false
     
     var body: some View {
         ZStack{
@@ -51,9 +53,18 @@ struct AddWordView: View {
                 
                 Button(action: {
                     withAnimation {
-                        let newWord = WordTranslate(id: .init(), originalLangWord: originalWord, translateWord: translatedWord, wordKnowIt: false, notes: "Empty", keyTransWord: true, listWordsTrans: [])
-                        viewModel.insert(word: newWord)
-                        self.presentationMode.projectedValue.wrappedValue.dismiss()
+                        yaExiste = []
+                        yaExiste =  viewModel.words.filter{
+                            $0.originalLangWord.lowercased().contains(originalWord.lowercased())
+                        }
+                        print(yaExiste.count)
+                        if (yaExiste.count == 0){
+                            let newWord = WordTranslate(id: .init(), originalLangWord: originalWord, translateWord: translatedWord, wordKnowIt: false, notes: "Empty", keyTransWord: true, listWordsTrans: [])
+                            viewModel.insert(word: newWord)
+                            self.presentationMode.projectedValue.wrappedValue.dismiss()
+                        }else{
+                            showAlertExist = true
+                        }
                     }
                 }, label: {
                     Text("Add")
@@ -65,6 +76,12 @@ struct AddWordView: View {
                 .clipShape(Rectangle())
                 .background(.blue)
                 .cornerRadius(10)
+                .alert(isPresented: $showAlertExist){
+                    Alert(title: Text("Warning"),
+                            message: Text("This word already exists"),
+                          dismissButton: .destructive(Text("Cancel"))
+                    )
+                }
                   
 
                 Button(action: {

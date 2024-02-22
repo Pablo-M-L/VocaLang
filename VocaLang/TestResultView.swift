@@ -37,33 +37,39 @@ struct TestResultView: View {
                 
                 HStack{
                     //boton de fallo
-                    Button(action: {
-                        wordTranslate.wordKnowIt = false
+                    VStack{
+                        Button(action: {
+                            wordTranslate.wordKnowIt = false
+                            
+                            self.presentationMode.projectedValue.wrappedValue.dismiss()
+                        }, label: {
+                            Image(systemName: "hand.thumbsdown.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .foregroundColor(.red)
+                                .frame(width: 100, height: 100)
+                        })
                         
-                        self.presentationMode.projectedValue.wrappedValue.dismiss()
-                    }, label: {
-                        Image(systemName: "hand.thumbsdown.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .foregroundColor(.red)
-                            .frame(width: 100, height: 100)
-                    })
-                    
+                        Text("Unknown").foregroundColor(Color("ColorText"))
+                    }
                     Spacer()
                     
                     //boton de acierto
-                    Button(action: {
-                        wordTranslate.wordKnowIt = true
-                        
-                        self.presentationMode.projectedValue.wrappedValue.dismiss()
-                    }, label: {
-                        Image(systemName: "hand.thumbsup.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .foregroundColor(.green)
-                            .frame(width: 100, height: 100)
-                        
-                    })
+                    VStack{
+                        Button(action: {
+                            wordTranslate.wordKnowIt = true
+                            
+                            self.presentationMode.projectedValue.wrappedValue.dismiss()
+                        }, label: {
+                            Image(systemName: "hand.thumbsup.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .foregroundColor(.green)
+                                .frame(width: 100, height: 100)
+                            
+                        })
+                        Text("Known").foregroundColor(Color("ColorText"))
+                    }
                 }.padding(40)
             }
         }

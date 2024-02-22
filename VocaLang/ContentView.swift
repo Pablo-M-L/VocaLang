@@ -26,6 +26,7 @@ struct ContentView: View {
     @State var showAddTranslate = false
     @State var cellword: MyItem? = nil
     @State var filterSelected = 0
+    @State var searchWord = ""
     
     
     @State var originalLanguageSelected = "English"
@@ -39,20 +40,18 @@ struct ContentView: View {
         var myword: WordTranslate
     }
     
+    var resultsWord : [WordTranslate]{
+        if searchWord.isEmpty{
+            return viewModel.words
+        }else{
+            return viewModel.words.filter{
+                $0.originalLangWord.lowercased().contains(searchWord.lowercased()) ||
+                $0.translateWord.lowercased().contains(searchWord.lowercased())
+            }
+        }
+    }
+    
     var body: some View {
-        
-        //TODO
-        //añadir al model swiftdata: notas, array para mas de una traduccion, traduccion favorita.
-        //barra busqueda
-        
-        //a futuro:
-        //mostras sheet con mas opciones de traduccion
-        //seleccionar entre google y deepl
-        //añadir audio
-        //widget mostrando una palabra cada dia
-        
-        
-     
 
             NavigationStack{
                 ZStack{
@@ -114,8 +113,11 @@ struct ContentView: View {
                                     Button(action: {
                                         showAddTranslate = true
                                     }, label: {
-                                        Text("ADD")
+                                        Image(systemName: "plus")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
                                             .foregroundColor(Color("ColorText"))
+                                            .frame(width: 20, height: 20)
                                         
                                         }
                                     )
@@ -124,7 +126,7 @@ struct ContentView: View {
                                         }
                                      )
                                 }.shadow(color: .gray, radius: 2)
-                                 .padding(5)
+                                 .padding(10)
                                 
                                 Spacer()
                                 
@@ -144,16 +146,19 @@ struct ContentView: View {
                                 Button(action: {
                                     showTransl.toggle()
                                 }, label: {
-                                    Text("Test")
+                                    Image(systemName: "checkmark.bubble")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
                                         .foregroundColor(Color("ColorText"))
+                                        .frame(width: 25, height: 25)
                                 }                                )
                             }.shadow(color: .gray, radius: 2)
-                             .padding(5)
+                             .padding(10)
                         }
                         
                         //lista de palabras -------------------------------
                         List{
-                            ForEach(viewModel.words){ word in
+                            ForEach(resultsWord){ word in
                                 
                                 HStack{
                                     
@@ -162,8 +167,8 @@ struct ContentView: View {
                                         .resizable()
                                         .foregroundColor(word.wordKnowIt ? .green : .red)
                                         .aspectRatio(contentMode: .fit)
-                                        .padding(2)
-                                        .frame(width: 35, height: 35)
+                                        //.padding(2)
+                                        .frame(width: 25, height: 25)
                                     
                                     VStack{
                                         //celda lista con las palabras
@@ -173,19 +178,22 @@ struct ContentView: View {
                                         }label:{
                                             VStack{
                                                 HStack{
-                                        
                                                     Spacer()
                                                     //palabra en idioma original
                                                     Text(word.originalLangWord)
                                                         .foregroundColor(Color("ColorTextOrig"))
+                                                        .font(.headline)
                                                     Spacer()
-                                                }
+                                                }//palabra original
+                                                
                                                 
                                                 if(showTransl){
-                                                    Image(systemName: "chevron.down")
-                                                        .padding(10)
-                                                        .foregroundColor(.white)
-                                                }
+                                                    RoundedRectangle(cornerRadius: 3)
+                                                        .frame(width: UIScreen.main.bounds.size.width / 1.8, height: 4)
+                                                        .foregroundColor(.black)
+                                                        .shadow(color: .gray, radius: 1, y: 1)
+                                                        .padding(.bottom, 4)
+                                                }// division
                                                 
                                                 //palabra traducida o globo para test
                                                 HStack{
@@ -194,19 +202,19 @@ struct ContentView: View {
                                                     if(showTransl){
                                                         Text(word.translateWord)
                                                             .foregroundColor(Color("ColorTextTrans"))
-                                                    }
+                                                    }//palabra traducida
                                                     
                                                     if(!showTransl){
                                                         Button(action: {
                                                             cellword = MyItem(id: UUID(), myword: word)
                                                         }, label: {
-                                                            Label("",systemImage: "checkmark.bubble").buttonStyle(.borderless).foregroundColor(.white)
+                                                            Label("",systemImage: "checkmark.bubble").buttonStyle(.borderless).foregroundColor(Color("ColorText"))
                                                         }).sheet(item: $cellword){ acellword in
                                                             TestResultView(wordTranslate: acellword.myword).presentationDetents([.medium,.large])
                                                         }
                                                         .buttonStyle(.borderless)
-                                                        .padding(.top, 20)
-                                                    }
+                                                        .padding(.top, 5)
+                                                    }//imagen de chech modo test
                                                     
                                                     Spacer()
                                                 }
@@ -227,12 +235,12 @@ struct ContentView: View {
                                     
                                     Spacer()
                                 }//hstack
-                                .padding(15)
+                                .padding(8)
                                 .listRowBackground(Color("Backgroundapp"))
                                 .listRowSeparator(.hidden)
                                 .background(Color("Backgroundcell"))
                                 .cornerRadius(8.0)
-                                .shadow(color: .gray, radius: 1)
+                                .shadow(color: .white, radius: 1)
                                 
                                 
                             } // foreach  
@@ -254,6 +262,7 @@ struct ContentView: View {
                     
                 }
             }//navigationstak
+            .searchable(text: $searchWord, placement: .navigationBarDrawer(displayMode: .automatic), prompt: Text("Search Word")).foregroundColor(.white)
         
     }//body
         
@@ -265,10 +274,10 @@ struct ContentView: View {
             .foregroundColor: UIColor(Color("ColorText")),
             .font : UIFont(name:"Arial", size: 44)!]
         
-        UISegmentedControl.appearance().backgroundColor = UIColor(Color("ColorBackgrounSegmented"))
+        UISegmentedControl.appearance().backgroundColor = UIColor(Color("Backgroundcell"))
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color("ColorBackroundSegSelected"))
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
         
 
     }
