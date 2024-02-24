@@ -18,7 +18,41 @@
 		6E39EC342B6AB0AD00B2CA3D /* DetailWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39EC332B6AB0AD00B2CA3D /* DetailWordView.swift */; };
 		6E6BD3572B6AC36F0001F6E9 /* TestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6BD3562B6AC36F0001F6E9 /* TestResultView.swift */; };
 		6E6BD3592B6AC38D0001F6E9 /* AddWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6BD3582B6AC38D0001F6E9 /* AddWordView.swift */; };
+		6E9634DF2B89DD8700332468 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9634DE2B89DD8700332468 /* WidgetKit.framework */; };
+		6E9634E12B89DD8700332468 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9634E02B89DD8700332468 /* SwiftUI.framework */; };
+		6E9634E42B89DD8700332468 /* VocaLangWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9634E32B89DD8700332468 /* VocaLangWidgetBundle.swift */; };
+		6E9634E62B89DD8700332468 /* VocaLangWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9634E52B89DD8700332468 /* VocaLangWidgetLiveActivity.swift */; };
+		6E9634E82B89DD8700332468 /* VocaLangWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9634E72B89DD8700332468 /* VocaLangWidget.swift */; };
+		6E9634EA2B89DD8700332468 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9634E92B89DD8700332468 /* AppIntent.swift */; };
+		6E9634EC2B89DD8900332468 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E9634EB2B89DD8900332468 /* Assets.xcassets */; };
+		6E9634F02B89DD8900332468 /* VocaLangWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6E9634DC2B89DD8700332468 /* VocaLangWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6E9634F52B89E08300332468 /* WordTranslate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39EC2F2B684C9C00B2CA3D /* WordTranslate.swift */; };
+		6E9634F62B89E43B00332468 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E39EC312B684DAB00B2CA3D /* ViewModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6E9634EE2B89DD8900332468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E39EC112B682E3300B2CA3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E9634DB2B89DD8700332468;
+			remoteInfo = VocaLangWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6E9634F42B89DD8900332468 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6E9634F02B89DD8900332468 /* VocaLangWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6E39EC192B682E3300B2CA3D /* VocaLang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocaLang.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +69,16 @@
 		6E6BD3582B6AC38D0001F6E9 /* AddWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordView.swift; sourceTree = "<group>"; };
 		6E79DACC2B6CB98900335F44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6E79DACD2B6CB9A400335F44 /* VocaLang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VocaLang.entitlements; sourceTree = "<group>"; };
+		6E9634DC2B89DD8700332468 /* VocaLangWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = VocaLangWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E9634DE2B89DD8700332468 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		6E9634E02B89DD8700332468 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		6E9634E32B89DD8700332468 /* VocaLangWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaLangWidgetBundle.swift; sourceTree = "<group>"; };
+		6E9634E52B89DD8700332468 /* VocaLangWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaLangWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		6E9634E72B89DD8700332468 /* VocaLangWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaLangWidget.swift; sourceTree = "<group>"; };
+		6E9634E92B89DD8700332468 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		6E9634EB2B89DD8900332468 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6E9634ED2B89DD8900332468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E9634F72B89EBFB00332468 /* VocaLangWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VocaLangWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,13 +89,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6E9634D92B89DD8700332468 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E9634E12B89DD8700332468 /* SwiftUI.framework in Frameworks */,
+				6E9634DF2B89DD8700332468 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		6E39EC102B682E3300B2CA3D = {
 			isa = PBXGroup;
 			children = (
+				6E9634F72B89EBFB00332468 /* VocaLangWidgetExtension.entitlements */,
 				6E39EC1B2B682E3300B2CA3D /* VocaLang */,
+				6E9634E22B89DD8700332468 /* VocaLangWidget */,
+				6E9634DD2B89DD8700332468 /* Frameworks */,
 				6E39EC1A2B682E3300B2CA3D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				6E39EC192B682E3300B2CA3D /* VocaLang.app */,
+				6E9634DC2B89DD8700332468 /* VocaLangWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,6 +157,28 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		6E9634DD2B89DD8700332468 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E9634DE2B89DD8700332468 /* WidgetKit.framework */,
+				6E9634E02B89DD8700332468 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E9634E22B89DD8700332468 /* VocaLangWidget */ = {
+			isa = PBXGroup;
+			children = (
+				6E9634E32B89DD8700332468 /* VocaLangWidgetBundle.swift */,
+				6E9634E52B89DD8700332468 /* VocaLangWidgetLiveActivity.swift */,
+				6E9634E72B89DD8700332468 /* VocaLangWidget.swift */,
+				6E9634E92B89DD8700332468 /* AppIntent.swift */,
+				6E9634EB2B89DD8900332468 /* Assets.xcassets */,
+				6E9634ED2B89DD8900332468 /* Info.plist */,
+			);
+			path = VocaLangWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -110,15 +189,34 @@
 				6E39EC152B682E3300B2CA3D /* Sources */,
 				6E39EC162B682E3300B2CA3D /* Frameworks */,
 				6E39EC172B682E3300B2CA3D /* Resources */,
+				6E9634F42B89DD8900332468 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6E9634EF2B89DD8900332468 /* PBXTargetDependency */,
 			);
 			name = VocaLang;
 			productName = VocaLang;
 			productReference = 6E39EC192B682E3300B2CA3D /* VocaLang.app */;
 			productType = "com.apple.product-type.application";
+		};
+		6E9634DB2B89DD8700332468 /* VocaLangWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E9634F12B89DD8900332468 /* Build configuration list for PBXNativeTarget "VocaLangWidgetExtension" */;
+			buildPhases = (
+				6E9634D82B89DD8700332468 /* Sources */,
+				6E9634D92B89DD8700332468 /* Frameworks */,
+				6E9634DA2B89DD8700332468 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VocaLangWidgetExtension;
+			productName = VocaLangWidgetExtension;
+			productReference = 6E9634DC2B89DD8700332468 /* VocaLangWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -131,6 +229,9 @@
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					6E39EC182B682E3300B2CA3D = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					6E9634DB2B89DD8700332468 = {
 						CreatedOnToolsVersion = 15.2;
 					};
 				};
@@ -149,6 +250,7 @@
 			projectRoot = "";
 			targets = (
 				6E39EC182B682E3300B2CA3D /* VocaLang */,
+				6E9634DB2B89DD8700332468 /* VocaLangWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -160,6 +262,14 @@
 			files = (
 				6E39EC242B682E3500B2CA3D /* Preview Assets.xcassets in Resources */,
 				6E39EC212B682E3500B2CA3D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E9634DA2B89DD8700332468 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E9634EC2B89DD8900332468 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +292,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6E9634D82B89DD8700332468 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E9634E82B89DD8700332468 /* VocaLangWidget.swift in Sources */,
+				6E9634EA2B89DD8700332468 /* AppIntent.swift in Sources */,
+				6E9634F52B89E08300332468 /* WordTranslate.swift in Sources */,
+				6E9634E62B89DD8700332468 /* VocaLangWidgetLiveActivity.swift in Sources */,
+				6E9634F62B89E43B00332468 /* ViewModel.swift in Sources */,
+				6E9634E42B89DD8700332468 /* VocaLangWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6E9634EF2B89DD8900332468 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E9634DB2B89DD8700332468 /* VocaLangWidgetExtension */;
+			targetProxy = 6E9634EE2B89DD8900332468 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6E39EC252B682E3500B2CA3D /* Debug */ = {
@@ -307,6 +438,7 @@
 		6E39EC282B682E3500B2CA3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = VocaLang/VocaLang.entitlements;
@@ -339,6 +471,7 @@
 		6E39EC292B682E3500B2CA3D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = VocaLang/VocaLang.entitlements;
@@ -368,6 +501,64 @@
 			};
 			name = Release;
 		};
+		6E9634F22B89DD8900332468 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = VocaLangWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MZKL96N2NF;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VocaLangWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = VocaLangWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablomillan.VocaLang.VocaLangWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6E9634F32B89DD8900332468 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = VocaLangWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MZKL96N2NF;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VocaLangWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = VocaLangWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pablomillan.VocaLang.VocaLangWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -385,6 +576,15 @@
 			buildConfigurations = (
 				6E39EC282B682E3500B2CA3D /* Debug */,
 				6E39EC292B682E3500B2CA3D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6E9634F12B89DD8900332468 /* Build configuration list for PBXNativeTarget "VocaLangWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E9634F22B89DD8900332468 /* Debug */,
+				6E9634F32B89DD8900332468 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -61,6 +61,8 @@ struct ContentView: View {
                         .edgesIgnoringSafeArea(.all)
                     
                     VStack{
+                        
+                        //lista con los tres  idiomas
                         HStack{
                             Picker(selection: $originalLanguageSelected, label: Text("Origin"), content: {
                                 ForEach(languages, id: \.self){ lang in
@@ -103,6 +105,128 @@ struct ContentView: View {
                             }
                             .foregroundColor(.white)
                         
+                        
+                        HStack{
+                            Spacer()
+                            Text("Total words: \(viewModel.words.count)").foregroundColor(Color("ColorText"))
+                            Spacer()
+                        }//recuento palabras
+                        
+                        //lista de palabras -------------------------------
+                        List{
+                            ForEach(shuffleList ? resultsWord.shuffled() : resultsWord.sorted(by: { $0.originalLangWord < $1.originalLangWord})){ word in
+                                
+                                HStack{
+                                    
+                                    //pulgar indicando si se sabe o no
+                                    Image(systemName: word.wordKnowIt ? "hand.thumbsup.fill" : "hand.thumbsdown.fill")
+                                        .resizable()
+                                        .foregroundColor(word.wordKnowIt ? .green : .red)
+                                        .aspectRatio(contentMode: .fit)
+                                        //.padding(2)
+                                        .frame(width: 25, height: 25)
+                                    
+                                    VStack{
+                                        //celda lista con las palabras
+                                        NavigationLink{
+                                            //destino
+                                            DetailWordView(wordTranslate: word)
+                                        }label:{
+                                            VStack{
+                                                
+                                                HStack{
+                                                    Spacer()
+                                                    //palabra en idioma original
+                                                    Text(swapWords ? word.translateWord : word.originalLangWord)
+                                                        .foregroundColor(Color("ColorTextOrig"))
+                                                        .font(.headline)
+                                                        .lineLimit(1)
+                                                        .minimumScaleFactor(0.1)
+                                                    Spacer()
+                                                }//palabra original
+                                                
+                                                
+                                                if(showTransl){
+                                                    RoundedRectangle(cornerRadius: 3)
+                                                        .frame(width: UIScreen.main.bounds.size.width / 1.8, height: 4)
+                                                        .foregroundColor(.black)
+                                                        .shadow(color: .gray, radius: 1, y: 1)
+                                                        .padding(.bottom, 4)
+                                                }// division
+                                                
+                                                //palabra traducida o check para test
+                                                HStack{
+                                                    Spacer()
+                                                    
+                                                    if(showTransl){
+                                                        Text(swapWords ? word.originalLangWord : word.translateWord)
+                                                            .foregroundColor(Color("ColorTextTrans"))
+                                                            .font(.headline)
+                                                            .lineLimit(1)
+                                                            .minimumScaleFactor(0.1)
+                                                    }//palabra traducida
+                                                    
+                                                    if(!showTransl){
+                                                        Button(action: {
+                                                            cellword = MyItem(id: UUID(), myword: word)
+                                                        }, label: {
+                                                            ZStack(alignment: .center){
+                                                                RoundedRectangle(cornerRadius:10)
+                                                                    .foregroundColor(Color("ColorTestButton"))
+                                                                    .frame(width: 80, height: 30)
+                                                                Text("Check")
+                                                                    .font(.caption)
+                                                            }
+                                                            /* Label("",systemImage: "checkmark.bubble").buttonStyle(.borderless).foregroundColor(Color("ColorText"))
+                                                             */
+                                                        }).sheet(item: $cellword){ acellword in
+                                                            TestResultView(wordTranslate: acellword.myword).presentationDetents([.medium,.large])
+                                                        }
+                                                        .buttonStyle(.borderless)
+                                                        .padding(.top, 5)
+                                                    }//check, modo test
+                                                    
+                                                    Spacer()
+                                                }
+                                            }
+                                        }.buttonStyle(PlainButtonStyle())
+                                            .swipeActions{
+                                                Button(role: .destructive){
+                                                    if(showTransl){
+                                                        viewModel.deleteWord(word: word)
+                                                    }
+                                                }label: {
+                                                    Label("",systemImage: "trash")
+                                                }
+                                            }
+                                        
+
+                                    }//vstack
+                                    
+                                    Spacer()
+                                }//hstack
+                                .padding(8)
+                                .listRowBackground(Color("Backgroundapp"))
+                                .listRowSeparator(.hidden)
+                                .background(Color("Backgroundcell"))
+                                .cornerRadius(8.0)
+                                .shadow(color: .white, radius: 1)
+                                
+                                
+                            } // foreach  
+                    
+                        }//list
+                        .scrollContentBackground(.hidden)
+                        .background(Color("Backgroundapp"))
+                        .listStyle(.inset)
+                        .navigationTitle("Vocabulary")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .onAppear{
+                            setUpApparence()
+                            viewModel.getWords(myfilter: filterSelected)
+                            originalLanguageSelected = UserDefaults.standard.string(forKey: "langOriginal") ?? "English"
+                            translateLanguageSelected = UserDefaults.standard.string(forKey: "langTranslate") ?? "Spanish"
+                        }
                         
                         HStack{
                             if(showTransl){
@@ -205,128 +329,13 @@ struct ContentView: View {
                             
                         } // botones
                         
-                        HStack{
-                            Spacer()
-                            Text("Total words: \(viewModel.words.count)").foregroundColor(Color("ColorText"))
-                            Spacer()
-                        }//recuento palabras
-                        
-                        //lista de palabras -------------------------------
-                        List{
-                            ForEach(shuffleList ? resultsWord.shuffled() : resultsWord.sorted(by: { $0.originalLangWord < $1.originalLangWord})){ word in
-                                
-                                HStack{
-                                    
-                                    //pulgar indicando si se sabe o no
-                                    Image(systemName: word.wordKnowIt ? "hand.thumbsup.fill" : "hand.thumbsdown.fill")
-                                        .resizable()
-                                        .foregroundColor(word.wordKnowIt ? .green : .red)
-                                        .aspectRatio(contentMode: .fit)
-                                        //.padding(2)
-                                        .frame(width: 25, height: 25)
-                                    
-                                    VStack{
-                                        //celda lista con las palabras
-                                        NavigationLink{
-                                            //destino
-                                            DetailWordView(wordTranslate: word)
-                                        }label:{
-                                            VStack{
-                                                
-                                                HStack{
-                                                    Spacer()
-                                                    //palabra en idioma original
-                                                    Text(swapWords ? word.translateWord : word.originalLangWord)
-                                                        .foregroundColor(Color("ColorTextOrig"))
-                                                        .font(.headline)
-                                                    Spacer()
-                                                }//palabra original
-                                                
-                                                
-                                                if(showTransl){
-                                                    RoundedRectangle(cornerRadius: 3)
-                                                        .frame(width: UIScreen.main.bounds.size.width / 1.8, height: 4)
-                                                        .foregroundColor(.black)
-                                                        .shadow(color: .gray, radius: 1, y: 1)
-                                                        .padding(.bottom, 4)
-                                                }// division
-                                                
-                                                //palabra traducida o check para test
-                                                HStack{
-                                                    Spacer()
-                                                    
-                                                    if(showTransl){
-                                                        Text(swapWords ? word.originalLangWord : word.translateWord)
-                                                            .foregroundColor(Color("ColorTextTrans"))
-                                                    }//palabra traducida
-                                                    
-                                                    if(!showTransl){
-                                                        Button(action: {
-                                                            cellword = MyItem(id: UUID(), myword: word)
-                                                        }, label: {
-                                                            ZStack(alignment: .center){
-                                                                RoundedRectangle(cornerRadius:10)
-                                                                    .foregroundColor(Color("ColorTestButton"))
-                                                                    .frame(width: 80, height: 30)
-                                                                Text("Check")
-                                                                    .font(.caption)
-                                                            }
-                                                            /* Label("",systemImage: "checkmark.bubble").buttonStyle(.borderless).foregroundColor(Color("ColorText"))
-                                                             */
-                                                        }).sheet(item: $cellword){ acellword in
-                                                            TestResultView(wordTranslate: acellword.myword).presentationDetents([.medium,.large])
-                                                        }
-                                                        .buttonStyle(.borderless)
-                                                        .padding(.top, 5)
-                                                    }//check, modo test
-                                                    
-                                                    Spacer()
-                                                }
-                                            }
-                                        }.buttonStyle(PlainButtonStyle())
-                                            .swipeActions{
-                                                Button(role: .destructive){
-                                                    if(showTransl){
-                                                        viewModel.deleteWord(word: word)
-                                                    }
-                                                }label: {
-                                                    Label("",systemImage: "trash")
-                                                }
-                                            }
-                                        
-
-                                    }//vstack
-                                    
-                                    Spacer()
-                                }//hstack
-                                .padding(8)
-                                .listRowBackground(Color("Backgroundapp"))
-                                .listRowSeparator(.hidden)
-                                .background(Color("Backgroundcell"))
-                                .cornerRadius(8.0)
-                                .shadow(color: .white, radius: 1)
-                                
-                                
-                            } // foreach  
-                    
-                        }//list
-                        .scrollContentBackground(.hidden)
-                        .background(Color("Backgroundapp"))
-                        .listStyle(.inset)
-                        .navigationTitle("Vocabulary")
-                        .navigationBarTitleDisplayMode(.inline)
-                        .onAppear{
-                            setUpApparence()
-                            viewModel.getWords(myfilter: filterSelected)
-                            originalLanguageSelected = UserDefaults.standard.string(forKey: "langOriginal") ?? "English"
-                            translateLanguageSelected = UserDefaults.standard.string(forKey: "langTranslate") ?? "Spanish"
-                        }
-                        
                     }//Vstack
                     
                 }
             }//navigationstak
-            .searchable(text: $searchWord, placement: .navigationBarDrawer(displayMode: .automatic), prompt: Text("Search Word")).foregroundColor(.white)
+            .searchable(text: $searchWord, placement: .navigationBarDrawer(displayMode: .automatic), prompt: Text("Search Word")).foregroundColor(.white)                            
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.1)
         
     }//body
         
