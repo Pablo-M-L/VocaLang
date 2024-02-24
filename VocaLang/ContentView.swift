@@ -27,7 +27,8 @@ struct ContentView: View {
     @State var cellword: MyItem? = nil
     @State var filterSelected = 0
     @State var searchWord = ""
-    
+    @State var swapWords = false
+    @State var shuffleList = false
     
     @State var originalLanguageSelected = "English"
     @State var translateLanguageSelected = "Spanish"
@@ -105,6 +106,8 @@ struct ContentView: View {
                         
                         HStack{
                             if(showTransl){
+                                
+                                //boton añadir palabra
                                 ZStack(alignment: .center){
                                     Circle()
                                         .foregroundColor(Color("Backgroundcell"))
@@ -130,7 +133,51 @@ struct ContentView: View {
                                 
                                 Spacer()
                                 
-                                Text("Total words: \(viewModel.words.count)").foregroundColor(Color("ColorText"))
+                                
+                                //boton intercambiar orden palabras
+                                ZStack(alignment: .center){
+                                    Circle()
+                                        .foregroundColor(Color("Backgroundcell"))
+                                        .frame(width: 50, height: 50)
+                                    
+                                    Button(action: {
+                                        swapWords.toggle()
+                                    }, label: {
+                                        Image(systemName: "arrow.triangle.2.circlepath")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .foregroundColor(Color("ColorText"))
+                                            .frame(width: 20, height: 20)
+                                        
+                                        }
+                                    )
+                                }.shadow(color: .gray, radius: 2)
+                                 .padding(10)
+                                
+                                Spacer()
+                                
+                                //boton desordenar lista
+                                ZStack(alignment: .center){
+                                    Circle()
+                                        .foregroundColor(shuffleList ? Color("ColorTestButton") : Color("Backgroundcell"))
+                                        .frame(width: 50, height: 50)
+                                    
+                                    Button(action: {
+                                        shuffleList.toggle()
+                                    }, label: {
+                                        Image(systemName: "shuffle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .foregroundColor(Color("ColorText"))
+                                            .frame(width: 20, height: 20)
+                                        
+                                        }
+                                    )
+                                }.shadow(color: .gray, radius: 2)
+                                 .padding(10)
+
+                                
+
                             }
 
                             
@@ -138,6 +185,7 @@ struct ContentView: View {
                             //boton que muestra u oculta la traduccion y el boton de comprobar.
                             Spacer()
                             
+                            //boton modo testeo
                             ZStack(alignment: .center){
                                 Circle()
                                     .foregroundColor(showTransl ? Color("Backgroundcell") : Color("ColorTestButton"))
@@ -154,11 +202,18 @@ struct ContentView: View {
                                 }                                )
                             }.shadow(color: .gray, radius: 2)
                              .padding(10)
-                        }
+                            
+                        } // botones
+                        
+                        HStack{
+                            Spacer()
+                            Text("Total words: \(viewModel.words.count)").foregroundColor(Color("ColorText"))
+                            Spacer()
+                        }//recuento palabras
                         
                         //lista de palabras -------------------------------
                         List{
-                            ForEach(resultsWord){ word in
+                            ForEach(shuffleList ? resultsWord.shuffled() : resultsWord.sorted(by: { $0.originalLangWord < $1.originalLangWord})){ word in
                                 
                                 HStack{
                                     
@@ -177,10 +232,11 @@ struct ContentView: View {
                                             DetailWordView(wordTranslate: word)
                                         }label:{
                                             VStack{
+                                                
                                                 HStack{
                                                     Spacer()
                                                     //palabra en idioma original
-                                                    Text(word.originalLangWord)
+                                                    Text(swapWords ? word.translateWord : word.originalLangWord)
                                                         .foregroundColor(Color("ColorTextOrig"))
                                                         .font(.headline)
                                                     Spacer()
@@ -195,12 +251,12 @@ struct ContentView: View {
                                                         .padding(.bottom, 4)
                                                 }// division
                                                 
-                                                //palabra traducida o globo para test
+                                                //palabra traducida o check para test
                                                 HStack{
                                                     Spacer()
                                                     
                                                     if(showTransl){
-                                                        Text(word.translateWord)
+                                                        Text(swapWords ? word.originalLangWord : word.translateWord)
                                                             .foregroundColor(Color("ColorTextTrans"))
                                                     }//palabra traducida
                                                     
@@ -208,13 +264,21 @@ struct ContentView: View {
                                                         Button(action: {
                                                             cellword = MyItem(id: UUID(), myword: word)
                                                         }, label: {
-                                                            Label("",systemImage: "checkmark.bubble").buttonStyle(.borderless).foregroundColor(Color("ColorText"))
+                                                            ZStack(alignment: .center){
+                                                                RoundedRectangle(cornerRadius:10)
+                                                                    .foregroundColor(Color("ColorTestButton"))
+                                                                    .frame(width: 80, height: 30)
+                                                                Text("Check")
+                                                                    .font(.caption)
+                                                            }
+                                                            /* Label("",systemImage: "checkmark.bubble").buttonStyle(.borderless).foregroundColor(Color("ColorText"))
+                                                             */
                                                         }).sheet(item: $cellword){ acellword in
                                                             TestResultView(wordTranslate: acellword.myword).presentationDetents([.medium,.large])
                                                         }
                                                         .buttonStyle(.borderless)
                                                         .padding(.top, 5)
-                                                    }//imagen de chech modo test
+                                                    }//check, modo test
                                                     
                                                     Spacer()
                                                 }
